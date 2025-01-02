@@ -38,7 +38,7 @@ git clone https://github.com/Microtreei/TSD-SR.git
 cd TSD-SR
 
 # create an environment 
-conda create -n tsdsr python=3.8
+conda create -n tsdsr python=3.9
 conda activate tsdsr
 pip install -r requirements.txt
 ```
