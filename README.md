@@ -24,10 +24,53 @@
 </div> 
 
 ## 🔥 <a name="news"></a>News
-- [2024.12] This repo is created.
+- **[2025.01]** Release the TSD-SR, including the inference codes and pretrained models.
+- **[2024.12]** This repo is created.
+
 
 ## 🎬 <a name="overview"></a>Overview
 ![overview](assets/pipeline.png)
+
+## ⚙️ Dependencies and Installation
+```
+## git clone this repository
+git clone https://github.com/Microtreei/TSD-SR.git
+cd TSD-SR
+
+# create an environment 
+conda create -n tsdsr python=3.8
+conda activate tsdsr
+pip install -r requirements.txt
+```
+
+## 🚀 <a name="start"></a>Quick Start
+#### Step 1: Download the pretrained models
+- Download the pretrained SD3 models from [HuggingFace](https://huggingface.co/stabilityai/stable-diffusion-3-medium-diffusers/tree/main).
+- Download the TSD-SR lora weights and prompt embeddings from [GoogleDrive](https://drive.google.com/drive/folders/1XJY9Qxhz0mqjTtgDXr07oFy9eJr8jphI?usp=drive_link).
+
+You can put the models weights into `checkpoint/tsdsr`.
+You can put the prompt embbedings into `dataset/default`.
+
+#### Step 2: Prepare testing data
+You can put the testing images in the `imgs`.
+
+#### Step 3: Running testing command
+```
+python test/test_tsdsr.py \
+--pretrained_model_name_or_path /path/to/your/sd3 \
+-i imgs \
+-o outputs \
+--lora_dir checkpoint/tsdsr \
+--embedding_dir dataset/default/ 
+```
+
+#### Step 4: Running testing metrics command
+```
+python test/test_metrics.py \
+--inp_imgs outputs \
+--gt_imgs /path/to/your/gt/images \
+--log logs/metrics
+```
 
 ## <a name="results"></a>🔎 Results
 <details>
