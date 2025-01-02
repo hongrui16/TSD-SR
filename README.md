@@ -27,6 +27,7 @@
 - **[2025.01]** Release the TSD-SR, including the inference codes and pretrained models.
 - **[2024.12]** This repo is created.
 
+:hugs: If TSD-SR is helpful to your projects, please help star this repo. Thanks! :hugs:
 
 ## 🎬 <a name="overview"></a>Overview
 ![overview](assets/pipeline.png)
