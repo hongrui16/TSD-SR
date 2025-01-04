@@ -47,7 +47,7 @@ pip install -r requirements.txt
 ## 🚀 <a name="start"></a>Quick Start
 #### Step 1: Download the pretrained models
 - Download the pretrained SD3 models from [HuggingFace](https://huggingface.co/stabilityai/stable-diffusion-3-medium-diffusers/tree/main).
-- Download the TSD-SR lora weights and prompt embeddings from [GoogleDrive](https://drive.google.com/drive/folders/1XJY9Qxhz0mqjTtgDXr07oFy9eJr8jphI?usp=drive_link).
+- Download the TSD-SR lora weights and prompt embeddings from [GoogleDrive](https://drive.google.com/drive/folders/1XJY9Qxhz0mqjTtgDXr07oFy9eJr8jphI?usp=drive_link) or [OneDrive](https://1drv.ms/f/c/d75249b59f444489/EsQQ2LLXp7pHsYMBVubgcsYBvEQXMmcNXGnz695odCGByQ?e=cRTmOX).
 
 You can put the models weights into `checkpoint/tsdsr`.
 You can put the prompt embbedings into `dataset/default`.
