@@ -247,6 +247,7 @@ if __name__ == "__main__":
         image_names = [args.input_dir]
     
     datalen = len(image_names)
+    print("image_num", datalen)
     if os.path.exists(args.output_dir) is False:
         os.makedirs(args.output_dir)
         
@@ -289,6 +290,7 @@ if __name__ == "__main__":
             pass
         
         image_pil_image.save(os.path.join(args.output_dir, os.path.basename(image_name)))
+        torch.cuda.empty_cache()
     print(f"Average time: {total_time / datalen}")
             
 
