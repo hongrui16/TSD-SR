@@ -1,11 +1,12 @@
 diffusers==0.29.1
-torch
-torchvision
-transformers
-xformers
-peft==0.10.0
-Pillow==10.3.0
-pyiqa==0.1.11
-basicsr
-tqdm
-argparse
+torch==2.2.2 
+torchvision==0.17.2
+pyiqa==0.1.13
+transformers==4.49.0
+# xformers
+peft==0.15.0
+pillow==10.3.0
+accelerate
+numpy==1.24.4
+wandb
+loralib==0.1.2
