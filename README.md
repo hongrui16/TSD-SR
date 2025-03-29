@@ -1,7 +1,7 @@
 <div align="center">
 
 
-<h1>TSD-SR: One-Step Diffusion with Target Score Distillation for Real-World Image Super-Resolution</h1>
+<h1>TSD-SR: One-Step Diffusion with Target Score Distillation for Real-World Image Super-Resolution [PyTorch]</h1>
 
 <div>
     <a href='https://github.com/Microtreei' target='_blank'>Linwei Dong<sup>1,*</sup></a>&emsp;
@@ -17,11 +17,15 @@
     <sup>1</sup>Zhejiang University, <sup>2</sup>Vivo Mobile Communication Co. Ltd, <sup>3</sup>University of Chinese Academy of Sciences,  <sup>4</sup>Zhejiang Lab 
 </div>
 
-[[paper]](https://arxiv.org/abs/2411.18263)
+&nbsp;&nbsp;
+<a href='https://arxiv.org/abs/2411.18263'><img src='https://img.shields.io/badge/arXiv-2411.18263-b31b1b.svg'></a> &nbsp;&nbsp;
+
 
 ---
 
 </div> 
+
+#### 🚩Accepted by CVPR2025
 
 ## 🔥 <a name="news"></a>News
 - **[2025.01]** Release the TSD-SR, including the inference codes and pretrained models.
