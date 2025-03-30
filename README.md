@@ -160,8 +160,14 @@ your_training_datasets/ # Example: FLICKR2K/
         └── 0000001.pt # SD3 latent space tensors, (16, 64, 64)
         └── ...
 ```
+#### Step 4: Download the teacher lora and null prompts embeddings
+- Download the [teacher models](https://drive.google.com/file/d/1do8pfdm_oNUhJKxTlC_x7LqY7NlE0-Q7/view?usp=sharing) and put them in `checkpoint/teacher/`. 
+- Download the [null prompts embeddings](https://drive.google.com/drive/folders/1_kSod1CCq_xwdwDnLYUhr7iaT70eFPBD?usp=sharing) and put them in `dataset/null/`.
 
-#### Step 4: Run training command (or modify and execute `script/train.sh`):
+We derive the teacher LoRA weights through fine-tuning of the pretrained SD3 model with HR data, optimizing via Diffusion loss. This is designed to enhance the teacher model's sensitivity to HQ data. Use `use_teacher_lora` to enable LoRA weights; otherwise, the T2I SD3 model will be used as the teacher model by default.
+The null prompts embeddings are used to compute cfg when training. 
+
+#### Step 5: Run training command (or modify and execute `script/train.sh`):
 ```
 export MODEL_NAME="/path/to/your/sd3_model";
 export TEACHER_MODEL_NAME="checkpoint/teacher/";
@@ -230,7 +236,6 @@ nohup accelerate launch  --config_file config/config.yaml  --gpu_ids 0,1,2,3,4,5
     <img width="900" src="assets/visualization-gan2.png">
     </p>
 </details>
-
 
 
 ## 🎫 <a name="license"></a>License
