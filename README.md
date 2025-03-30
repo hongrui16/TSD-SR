@@ -17,7 +17,7 @@
     <sup>1</sup>Zhejiang University, <sup>2</sup>Vivo Mobile Communication Co. Ltd, <sup>3</sup>University of Chinese Academy of Sciences,  <sup>4</sup>Zhejiang Lab 
 </div>
 
-&nbsp;&nbsp;
+&nbsp;&nbsp;<br>
 <a href='https://arxiv.org/abs/2411.18263'><img src='https://img.shields.io/badge/arXiv-2411.18263-b31b1b.svg'></a> &nbsp;&nbsp;
 
 #### 🚩Accepted by CVPR2025
