@@ -36,7 +36,9 @@
 :hugs: If TSD-SR is helpful to your projects, please help star this repo. Thanks! :hugs:
 
 ## 🎬 <a name="overview"></a>Overview
+
 ![overview](assets/pipeline.png)
+
 
 ## ⚙️ Dependencies and Installation
 ```
@@ -59,24 +61,127 @@ You can put the models weights into `checkpoint/tsdsr`.
 You can put the prompt embbedings into `dataset/default`.
 
 #### Step 2: Prepare testing data
-You can put the testing images in the `imgs`.
+You can put the testing images in the `imgs/test`.
 
-#### Step 3: Running testing command
+#### Step 3: Run testing command
 ```
 python test/test_tsdsr.py \
 --pretrained_model_name_or_path /path/to/your/sd3 \
--i imgs \
--o outputs \
+-i imgs/test \
+-o outputs/test \
 --lora_dir checkpoint/tsdsr \
---embedding_dir dataset/default/ 
+--embedding_dir dataset/default
 ```
 
-#### Step 4: Running testing metrics command
+## 🌈 <a name="start"></a>Evaluation
+#### Step 1: Download the StableSR test datasets
+- **Download StableSR testsets** (DrealSRVal_crop128, RealSRVal_crop128, DIV2K_V2_val) from [GoogleDrive](https://drive.google.com/drive/folders/1XJY9Qxhz0mqjTtgDXr07oFy9eJr8jphI?usp=drive_link) or [OneDrive](https://1drv.ms/f/c/d75249b59f444489/EsQQ2LLXp7pHsYMBVubgcsYBvEQXMmcNXGnz695odCGByQ?e=cRTmOX). We sincerely thank the authors of StableSR for their well-curated test dataset.
+- **Unzip** them into `imgs/StableSR_testsets/`, the data folder should be like this:
+```
+├── imgs
+    ├── StableSR_testsets
+        ├── DIV2K_V2_val
+        │   ├── test_LR
+        │   ├── test_HR
+        ├── DrealSRVal_crop128
+        │   ├── test_LR
+        │   ├── test_HR
+        ├── RealSRVal_crop128
+            ├── test_LR
+            ├── test_HR
+```
+#### Step 2: Download the pretrained models
+- Download the TSD-SR lora weights `checkpoint/tsdsr-mse` from [GoogleDrive](https://drive.google.com/drive/folders/1XJY9Qxhz0mqjTtgDXr07oFy9eJr8jphI?usp=drive_link) or [OneDrive](https://1drv.ms/f/c/d75249b59f444489/EsQQ2LLXp7pHsYMBVubgcsYBvEQXMmcNXGnz695odCGByQ?e=cRTmOX). We employ this model for evaluation and set the `--align_method` to `adain`.
+
+#### Step 3: Run testing command
+Use **DRealSRVal_crop128** as an example.
+```
+python test/test_tsdsr.py \
+--pretrained_model_name_or_path /path/to/your/sd3 \
+-i imgs/StableSR_testsets/DrealSRVal_crop128/test_LR \
+-o outputs/DrealSR \
+--lora_dir checkpoint/tsdsr-mse \
+--embedding_dir dataset/default \
+--align_method adain
+```
+#### Step 4: Run testing metrics command
 ```
 python test/test_metrics.py \
---inp_imgs outputs \
---gt_imgs /path/to/your/gt/images \
+--inp_imgs outputs/DrealSR \
+--gt_imgs imgs/StableSR_testsets/DrealSRVal_crop128/test_HR \
 --log logs/metrics
+```
+
+## 🔥 <a name="start"></a>Train
+#### Step 1: Download the training data
+- Download the [LSDIR](https://huggingface.co/ofsoundof/LSDIR), [FLICKR2K](https://www.kaggle.com/datasets/daehoyang/flickr2k), [DIV2K](https://data.vision.ee.ethz.ch/cvl/DIV2K/), [FFHQ](https://huggingface.co/datasets/student/FFHQ) dataset and store it in your preferred location.
+
+#### Step 2: Prepare the degraded images and prompt texts
+- **Generate degraded images**: We employ the same degradation pipeline as [SeeSR](https://github.com/cswry/SeeSR/tree/main). More details can be found at [here](https://github.com/cswry/SeeSR/blob/main/README.md#-train). Thanks for this awesome work. In addition, you can put the prompt texts in `your_training_datasets/lr_bicubic`.
+- **Prompt texts**: You may use either tag-based prompts (generated via [DAPE](https://github.com/cswry/SeeSR/blob/main/README.md#-quick-inference), download from [here](https://drive.google.com/drive/folders/12HXrRGEXUAnmHRaf0bIn-S8XSK4Ku0JO)) or natural language descriptions (produced by the Large Language and Vision Assistant, [LLaVA](https://github.com/haotian-liu/LLaVA)) as high-quality (HQ) image prompts. Thanks for these awesome works. In addition, you can put the prompt texts in `your_training_datasets/prompt_txt`.
+
+#### Step 3: Prepare the training data
+- **Modify** the dataset path in `data/data.py` and `data/process.py`, and ensure the directory structure:
+```
+your_training_datasets/ # Example: FLICKR2K/
+    └── gt
+        └── 0000001.png # GT images, (3, 512, 512)
+        └── ...
+    └── lr_bicubic
+        └── 0000001.png # Bicubic LR images, (3, 512, 512)
+        └── ...
+    └── prompt_txt
+        └── 0000001.txt # prompts for teacher model and lora model
+        └── ...
+```
+- **Modify** the SD3 path in `data/process.py` and run it to generate the training data: 
+```
+python data/process.py 
+```
+This step is designed to **reduce GPU memory overhead during training**. Since SD3’s tokenizer and text encoder require significant parameter storage, we pre-compute their outputs and load them directly during training. Similarly, we also pre-process the HR (High-Resolution) latent space tensors to optimize memory efficiency. The final data folder will be like this:
+```
+your_training_datasets/ # Example: FLICKR2K/
+    └── gt
+        └── 0000001.png # GT images, (3, 512, 512)
+        └── ...
+    └── lr_bicubic
+        └── 0000001.png # Bicubic LR images, (3, 512, 512)
+        └── ...
+    └── prompt_txt
+        └── 0000001.txt # prompts for teacher model and lora model
+        └── ...
+    └── prompt_embeds
+        └── 0000001.pt # SD3 prompt embedding tensors, (333, 4096)
+        └── ...
+    └── pool_embeds
+        └── 0000001.pt # SD3 pooled embedding tensors, (2048,)
+        └── ...
+    └── latent_hr
+        └── 0000001.pt # SD3 latent space tensors, (16, 64, 64)
+        └── ...
+```
+
+#### Step 4: Run training command (or modify and execute `script/train.sh`):
+```
+export MODEL_NAME="/path/to/your/sd3_model";
+export TEACHER_MODEL_NAME="checkpoint/teacher/";
+export CHECKPOINT_PATH="checkpoint/tsdsr";
+export HF_ENDPOINT="https://hf-mirror.com";
+export OUTPUT_DIR="checkpoint/tsdsr-save/";
+export OUTPUT_LOG="logs/tsdsr.log";
+export LOG_NAME="tsdsr-train";
+nohup accelerate launch  --config_file config/config.yaml  --gpu_ids 0,1,2,3,4,5,6,7 --num_processes 8 --main_process_port 57079 --mixed_precision="fp16" train/train.py \
+  --pretrained_model_name_or_path=$MODEL_NAME  \
+  --teacher_lora_path=$TEACHER_MODEL_NAME \
+  --train_batch_size=2 --rank=64 --rank_vae=64 --rank_lora=64  \
+  --num_train_epochs=200 --checkpointing_steps=5000 --validation_steps=500  --max_train_steps=200000 \
+  --learning_rate=5e-06  --learning_rate_reg=1e-06 --lr_scheduler="cosine_with_restarts" --lr_warmup_steps=3000 \
+  --seed=43 --use_default_prompt --use_teacher_lora --use_random_bias \
+  --output_dir=$OUTPUT_DIR \
+  --report_to="wandb" --log_code --log_name=$LOG_NAME \
+  --gradient_accumulation_steps=1 \
+  --resume_from_checkpoint="latest" \
+  --guidance_scale=7.5  > $OUTPUT_LOG 2>&1 & \
 ```
 
 ## <a name="results"></a>🔎 Results

@@ -13,10 +13,10 @@ from diffusers import AutoencoderKL
 # Paths to the datasets
 FLICKR2K_PATH = "/path/to/your/Flickr2K/datasets"  
 DIV2K_PATH = "/path/to/your/DIV2K/datasets"        
-LSDIR20K_PATH = "/path/to/your/LSDIR/datasets"    
+LSDIR80K_PATH = "/path/to/your/LSDIR/datasets"    
 FFHQ10K_PATH = "/path/to/your/FFHQ/datasets"     
 
-data_path = [LSDIR20K_PATH, DIV2K_PATH, FFHQ10K_PATH, FLICKR2K_PATH]
+data_path = [LSDIR80K_PATH, DIV2K_PATH, FFHQ10K_PATH, FLICKR2K_PATH]
 sd3_path = "/path/to/your/sd3_model"  # Path to the SD3 model
 hr_dir_name = "gt" # High-resolution images directory
 prompt_dir_name = "prompt_txt" # Prompt text directory

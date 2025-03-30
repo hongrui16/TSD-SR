@@ -9,10 +9,10 @@ from torchvision import transforms
 # Paths to the datasets
 FLICKR2K_PATH = "/path/to/your/Flickr2K/datasets"  
 DIV2K_PATH = "/path/to/your/DIV2K/datasets"        
-LSDIR20K_PATH = "/path/to/your/LSDIR/datasets"    
+LSDIR80K_PATH = "/path/to/your/LSDIR/datasets"    
 FFHQ10K_PATH = "/path/to/your/FFHQ/datasets"        
 
-data_path = [LSDIR20K_PATH, DIV2K_PATH, FFHQ10K_PATH, FLICKR2K_PATH]
+data_path = [LSDIR80K_PATH, DIV2K_PATH, FFHQ10K_PATH, FLICKR2K_PATH]
 lr_dir_name = "lr_bicubic"
 hr_dir_name = "gt"
 prompt_dir_name = "prompt_txt"
