@@ -4,7 +4,7 @@
 <h1>TSD-SR: One-Step Diffusion with Target Score Distillation for Real-World Image Super-Resolution [PyTorch]</h1>
 
 <div>
-    <a href='https://github.com/Microtreei' target='_blank'>Linwei Dong<sup>1,*</sup></a>&emsp;
+    <a href='https://github.com/Microtreei' target='_blank'>Linwei Dong<sup>1,2*</sup></a>&emsp;
     <a href='https://fqnchina.github.io/' target='_blank'>Qingnan Fan<sup>2,*</sup></a>&emsp;
     <a href='https://github.com/Sun-Made-By-Yi' target='_blank'>Yihong Guo<sup>1</sup></a>&emsp;
     <a href='https://github.com/Wzh10032' target='_blank'>Zhonghao Wang<sup>3</sup></a>&emsp;
@@ -20,14 +20,16 @@
 &nbsp;&nbsp;
 <a href='https://arxiv.org/abs/2411.18263'><img src='https://img.shields.io/badge/arXiv-2411.18263-b31b1b.svg'></a> &nbsp;&nbsp;
 
+#### 🚩Accepted by CVPR2025
 
 ---
 
 </div> 
 
-#### 🚩Accepted by CVPR2025
+
 
 ## 🔥 <a name="news"></a>News
+- **[2025.03]** Training code is released.
 - **[2025.01]** Release the TSD-SR, including the inference codes and pretrained models.
 - **[2024.12]** This repo is created.
 
@@ -38,7 +40,7 @@
 
 ## ⚙️ Dependencies and Installation
 ```
-## git clone this repository
+# git clone this repository
 git clone https://github.com/Microtreei/TSD-SR.git
 cd TSD-SR
 
