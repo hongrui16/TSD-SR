@@ -945,7 +945,7 @@ def main(args):
 
                     # Compute the weighting for the loss
                     if args.weighting_scheme == "sigma_sqrt":
-                        weighting = (sigmas**-2.0)
+                        weighting = (sigmas_lora**-2.0)
                     elif args.weighting_scheme == "logit_normal":
                         u = torch.normal(mean=args.logit_mean, std=args.logit_std, size=(bsz,), device=accelerator.device)
                         weighting = torch.nn.functional.sigmoid(u)
