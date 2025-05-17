@@ -198,8 +198,8 @@ def run_encode_prompt(data_dir):
 
     for hr_img_file in tqdm(hr_data_file, total=len(hr_data_file)):
         prompt_file = hr_img_file.replace(".png",".txt").replace(hr_dir_name, prompt_dir_name)
-        prompt_path = prompt_file.replace(".txt",".pt").replace(hr_dir_name, prompt_embeds_dir_name)
-        pool_path = prompt_file.replace(".txt",".pt").replace(hr_dir_name, pool_prompt_embeds_dir_name)
+        prompt_path = prompt_file.replace(".txt",".pt").replace(prompt_dir_name, prompt_embeds_dir_name)
+        pool_path = prompt_file.replace(".txt",".pt").replace(prompt_dir_name, pool_prompt_embeds_dir_name)
         
         with open(prompt_file, "r") as f:
             prompt = f.read()
