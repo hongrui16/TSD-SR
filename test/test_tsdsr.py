@@ -288,8 +288,8 @@ if __name__ == "__main__":
             image_pil_image = wavelet_color_fix(target=image_pil_image, source=lr_scale)
         else:
             pass
-        
-        image_pil_image.save(os.path.join(args.output_dir, os.path.basename(image_name)))
+        new_name = os.path.basename(image_name).split('.')[-2] + '_TSD-SRx4.png'
+        image_pil_image.save(os.path.join(args.output_dir, new_name))
         torch.cuda.empty_cache()
     print(f"Average time: {total_time / datalen}")
             
